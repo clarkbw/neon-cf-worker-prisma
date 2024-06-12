@@ -1,5 +1,5 @@
 -- CreateTable
-CREATE TABLE "Task" (
+CREATE TABLE "tasks" (
     "id" SERIAL NOT NULL,
     "name" TEXT NOT NULL,
     "slug" TEXT NOT NULL,
@@ -7,5 +7,5 @@ CREATE TABLE "Task" (
     "completed" BOOLEAN NOT NULL,
     "due_date" TIMESTAMP(3) NOT NULL,
 
-    CONSTRAINT "Task_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "tasks_pkey" PRIMARY KEY ("id")
 );

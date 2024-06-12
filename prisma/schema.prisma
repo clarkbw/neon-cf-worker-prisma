@@ -15,4 +15,6 @@ model Task {
   description String?
   completed   Boolean
   due_date    DateTime
+
+  @@map("tasks")
 }
