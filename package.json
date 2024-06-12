@@ -9,7 +9,10 @@
 		"cf-typegen": "wrangler types"
 	},
 	"dependencies": {
-		"@cloudflare/itty-router-openapi": "^1.0.1"
+		"@cloudflare/itty-router-openapi": "^1.0.1",
+		"@neondatabase/serverless": "^0.9.3",
+		"@prisma/adapter-neon": "^5.15.0",
+		"@prisma/client": "^5.15.0"
 	},
 	"devDependencies": {
 		"@cloudflare/workers-types": "^4.20240605.0",
