@@ -1,0 +1,26 @@
+name: PR Preview
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+
+jobs:
+  pr-preview:
+    runs-on: ubuntu-latest
+
+    concurrency:
+      group: pr-${{ github.event.number }}
+
+    outputs:
+      url: ${{ steps.preview.outputs.deployment-url }}
+
+    environment:
+      name: preview
+      url: ${{ steps.preview.outputs.deployment-url }}
+
+    steps:
+      - uses: actions/checkout@v4
+      - id: preview
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          command: deploy --env preview
