@@ -4,7 +4,7 @@ import {
   Query,
 } from "@cloudflare/itty-router-openapi";
 import { Task } from "../types";
-// import { getClient } from "../db";
+import { getClient } from "../db";
 
 export class TaskList extends OpenAPIRoute {
   static schema: OpenAPIRouteSchema = {
@@ -43,30 +43,47 @@ export class TaskList extends OpenAPIRoute {
     const { page, isCompleted } = data.query;
 
     // Implement your own object list here
-    // const client = getClient();
-    // const { rows } = await client.query("SELECT * FROM tasks WHERE completed = ?;");
-    // const tasks = JSON.stringify(rows);
+    const prisma = await getClient(env);
 
-    const tasks = [
-      {
-        name: "Clean my room",
-        slug: "clean-room",
-        description: null,
-        completed: false,
-        due_date: "2025-01-05",
-      },
-      {
-        name: "Build something awesome with Neon & Cloudflare Workers",
-        slug: "cloudflare-workers",
-        description: "Lorem Ipsum",
-        completed: true,
-        due_date: "2022-12-24",
-      },
-    ].filter((t) => isCompleted === undefined || t.completed == isCompleted);
+    try {
+      // completed can be undefined and it works like you want
+      // https://www.prisma.io/docs/orm/prisma-client/special-fields-and-types/null-and-undefined#undefined
+      const tasks = await prisma.task.findMany({
+        skip: page * 10,
+        take: 10,
+        where: {
+          completed: isCompleted,
+        },
+      });
 
-    return {
-      success: true,
-      tasks,
-    };
+      return {
+        success: true,
+        result: {
+          tasks,
+        },
+      };
+    } catch (e) {
+      console.error(e);
+      return {
+        success: false,
+      };
+    }
+
+    // const tasks = [
+    //   {
+    //     name: "Clean my room",
+    //     slug: "clean-room",
+    //     description: null,
+    //     completed: false,
+    //     due_date: "2025-01-05",
+    //   },
+    //   {
+    //     name: "Build something awesome with Neon & Cloudflare Workers",
+    //     slug: "cloudflare-workers",
+    //     description: "Lorem Ipsum",
+    //     completed: true,
+    //     due_date: "2022-12-24",
+    //   },
+    // ].filter((t) => isCompleted === undefined || t.completed == isCompleted);
   }
 }

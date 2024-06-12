@@ -1,3 +1,7 @@
+# DATABASE_URL
+Cloudflare needs `.dev.vars`
+Prisma needs `.env`
+
 # Cloudflare Workers OpenAPI 3.1
 
 This is a Cloudflare Worker with OpenAPI 3.1 using [itty-router-openapi](https://github.com/cloudflare/itty-router-openapi).

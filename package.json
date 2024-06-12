@@ -13,12 +13,14 @@
 		"@neondatabase/serverless": "^0.9.3",
 		"@prisma/adapter-neon": "^5.15.0",
 		"@prisma/client": "^5.15.0",
-		"prisma": "^5.15.0"
+		"prisma": "^5.15.0",
+		"ws": "^8.17.0"
 	},
 	"devDependencies": {
 		"@cloudflare/workers-types": "^4.20240605.0",
 		"@types/node": "^20.5.7",
 		"@types/service-worker-mock": "^2.0.1",
+		"@types/ws": "^8.5.10",
 		"wrangler": "^3.0.0"
 	}
 }
