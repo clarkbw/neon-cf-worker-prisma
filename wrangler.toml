@@ -6,6 +6,7 @@ compatibility_date = "2024-06-05"
 [vars]
 ENVIRONMENT = "dev"
 CONFERENCE_NAME = "MERGE"
+workers_dev = true
 
 [env.preview]
 vars = { ENVIRONMENT = "preview" }
