@@ -3,6 +3,7 @@ import {
   OpenAPIRouteSchema,
 } from "@cloudflare/itty-router-openapi";
 import { Task } from "../types";
+import { getClient } from "../db";
 
 export class TaskCreate extends OpenAPIRoute {
   static schema: OpenAPIRouteSchema = {
@@ -29,23 +30,34 @@ export class TaskCreate extends OpenAPIRoute {
     data: Record<string, any>,
   ) {
     // Retrieve the validated request body
-    const taskToCreate = data.body;
+    const { name, slug, description, completed, due_date } = data.body;
 
-    // Implement your own object insertion here
-    // const client = getClient();
-    // const { rows } = await client.query("INSERT INTO tasks VALUES (taskToCreate.name, taskToCreate.slug, taskToCreate.description, taskToCreate.completed, taskToCreate.due_date);");
-    // const tasks = JSON.stringify(rows);
+    try {
+      // Implement your own object insertion here
+      const prisma = await getClient(env);
 
-    // return the new task
-    return {
-      success: true,
-      task: {
-        name: taskToCreate.name,
-        slug: taskToCreate.slug,
-        description: taskToCreate.description,
-        completed: taskToCreate.completed,
-        due_date: taskToCreate.due_date,
-      },
-    };
+      const task = await prisma.task.create({
+        data: {
+          name,
+          slug,
+          description,
+          completed,
+          due_date,
+        },
+      });
+
+      // return the new task
+      return {
+        success: true,
+        result: {
+          task,
+        },
+      };
+    } catch (e) {
+      console.error(e);
+      return {
+        success: false,
+      };
+    }
   }
 }

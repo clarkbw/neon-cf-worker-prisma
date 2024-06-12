@@ -4,6 +4,7 @@ import {
   Path,
 } from "@cloudflare/itty-router-openapi";
 import { Task } from "../types";
+import { getClient } from "../db";
 
 export class TaskFetch extends OpenAPIRoute {
   static schema: OpenAPIRouteSchema = {
@@ -44,11 +45,25 @@ export class TaskFetch extends OpenAPIRoute {
     const { taskSlug } = data.params;
 
     // Implement your own object fetch here
+    try {
+      // Implement your own object deletion here
+      const prisma = await getClient(env);
 
-    const exists = true;
+      const task = await prisma.task.findUniqueOrThrow({
+        where: {
+          slug: taskSlug,
+        },
+      });
 
-    // @ts-ignore: check if the object exists
-    if (exists === false) {
+      // Return the deleted task for confirmation
+      return {
+        success: true,
+        result: {
+          task,
+        },
+      };
+    } catch (e) {
+      console.error(e);
       return Response.json(
         {
           success: false,
@@ -59,16 +74,5 @@ export class TaskFetch extends OpenAPIRoute {
         },
       );
     }
-
-    return {
-      success: true,
-      task: {
-        name: "my task",
-        slug: taskSlug,
-        description: "this needs to be done",
-        completed: false,
-        due_date: new Date().toISOString().slice(0, 10),
-      },
-    };
   }
 }

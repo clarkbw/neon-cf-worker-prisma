@@ -4,6 +4,7 @@ import {
   Path,
 } from "@cloudflare/itty-router-openapi";
 import { Task } from "../types";
+import { getClient } from "../db";
 
 export class TaskDelete extends OpenAPIRoute {
   static schema: OpenAPIRouteSchema = {
@@ -36,20 +37,28 @@ export class TaskDelete extends OpenAPIRoute {
     // Retrieve the validated slug
     const { taskSlug } = data.params;
 
-    // Implement your own object deletion here
+    try {
+      // Implement your own object deletion here
+      const prisma = await getClient(env);
 
-    // Return the deleted task for confirmation
-    return {
-      result: {
-        task: {
-          name: "Build something awesome with Cloudflare Workers",
+      const task = await prisma.task.delete({
+        where: {
           slug: taskSlug,
-          description: "Lorem Ipsum",
-          completed: true,
-          due_date: "2022-12-24",
         },
-      },
-      success: true,
-    };
+      });
+
+      // Return the deleted task for confirmation
+      return {
+        success: true,
+        result: {
+          task,
+        },
+      };
+    } catch (e) {
+      console.error(e);
+      return {
+        success: false,
+      };
+    }
   }
 }
