@@ -19,6 +19,13 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+      - id: create-branch
+        uses: neondatabase/create-branch-action@v5
+        with:
+          project_id: ${{ env.NEON_PROJECT_ID }}
+          branch_name: preview/pr-${{ github.event.number }}
+          api_key: ${{ secrets.NEON_API_KEY }} # Generate an API key in your Neon account settings
+
       - id: preview
         uses: cloudflare/wrangler-action@v3
         with:
