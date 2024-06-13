@@ -8,11 +8,15 @@ ENVIRONMENT = "dev"
 CONFERENCE_NAME = "MERGE"
 workers_dev = true
 
-[env.preview]
-vars = { ENVIRONMENT = "preview" }
+[env.preview.vars]
+ENVIRONMENT = "preview"
+CONFERENCE_NAME = "MERGE"
+workers_dev = true
 
-[env.production]
-vars = { ENVIRONMENT = "production" }
+[env.production.vars]
+ENVIRONMENT = "production"
+CONFERENCE_NAME = "MERGE"
+workers_dev = true
 
 # Automatically place your workloads in an optimal location to minimize latency.
 # If you are running back-end logic in a Worker, running it closer to your back-end infrastructure
