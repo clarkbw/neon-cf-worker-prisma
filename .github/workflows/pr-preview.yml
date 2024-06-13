@@ -22,7 +22,7 @@ jobs:
       - id: create-branch
         uses: neondatabase/create-branch-action@v5
         with:
-          project_id: ${{ env.NEON_PROJECT_ID }}
+          project_id: ${{ var.NEON_PROJECT_ID }}
           branch_name: preview/pr-${{ github.event.number }}
           api_key: ${{ secrets.NEON_API_KEY }} # Generate an API key in your Neon account settings
 
