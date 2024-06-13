@@ -19,21 +19,24 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+
       - id: create-branch
         uses: neondatabase/create-branch-action@v5
         with:
           project_id: ${{ vars.NEON_PROJECT_ID }}
           branch_name: preview/pr-${{ github.event.number }}
-          api_key: ${{ secrets.NEON_API_KEY }} # Generate an API key in your Neon account settings
+          api_key: ${{ secrets.NEON_API_KEY }}
 
       - uses: actions/setup-node@v4
         with:
           node-version: 18
       - run: npm install
       - run: npx prisma migrate dev
+        env: DATABASE_URL="${{ steps.create-branch.outputs.db_url_with_pooler }}"
 
       - id: preview
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           command: deploy --env preview
+        env: DATABASE_URL="${{ steps.create-branch.outputs.db_url_with_pooler }}"
