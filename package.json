@@ -9,6 +9,7 @@
     "deploy": "wrangler deploy",
     "dev": "wrangler dev",
     "start": "wrangler dev",
+    "preview": "node ./preview.mjs",
     "cf-typegen": "wrangler types"
   },
   "dependencies": {
@@ -24,6 +25,7 @@
     "@types/node": "^20.5.7",
     "@types/service-worker-mock": "^2.0.1",
     "@types/ws": "^8.5.10",
+    "smol-toml": "^1.2.1",
     "wrangler": "^3.0.0"
   }
 }
