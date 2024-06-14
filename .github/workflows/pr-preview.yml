@@ -3,12 +3,15 @@ on:
   pull_request:
     types: [opened, reopened, synchronize]
 
+env:
+  PREVIEW_NAME: pr-${{ github.event.number }}
+
 jobs:
   pr-preview:
     runs-on: ubuntu-latest
 
     concurrency:
-      group: pr-${{ github.event.number }}
+      group: ${{ env.PREVIEW_NAME }}
 
     outputs:
       url: ${{ steps.preview.outputs.deployment-url }}
@@ -24,18 +27,18 @@ jobs:
         uses: neondatabase/create-branch-action@v5
         with:
           project_id: ${{ vars.NEON_PROJECT_ID }}
-          branch_name: preview/pr-${{ github.event.number }}
+          branch_name: preview/${{ env.PREVIEW_NAME }}
           api_key: ${{ secrets.NEON_API_KEY }}
 
       - uses: actions/setup-node@v4
         with:
           node-version: 18
       - run: npm install
-      - run: npx prisma migrate dev
+      - run: npx prisma migrate dev --skip-generate
         env:
           DATABASE_URL: "${{ steps.create-branch.outputs.db_url_with_pooler }}"
 
-      - run: npm run preview -- pr-${{ github.event.number }}
+      - run: npm run preview -- ${{ env.PREVIEW_NAME }}
 
       - run: npx wrangler secret list
         env:
@@ -45,7 +48,8 @@ jobs:
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          command: deploy --env pr-${{ github.event.number }}
-          secrets: DATABASE_URL
-        env:
-          DATABASE_URL: "${{ steps.create-branch.outputs.db_url_with_pooler }}"
+          command: deploy --env ${{ env.PREVIEW_NAME }}
+          postCommands: |
+            echo "*** post command ***"
+            echo "${{ steps.create-branch.outputs.db_url_with_pooler }}" | npx wrangler secret put DATABASE_URL --env ${{ env.PREVIEW_NAME }}
+            echo "******"
