@@ -22,7 +22,7 @@ try {
   const toml = stringify(parsed);
   console.log(toml);
 
-  // fs.writeFileSync(WRANGLER, toml);
+  fs.writeFileSync(WRANGLER, toml);
 } catch (err) {
   console.error(err);
 }
