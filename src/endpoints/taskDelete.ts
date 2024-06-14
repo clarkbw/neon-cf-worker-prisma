@@ -58,7 +58,7 @@ export class TaskDelete extends OpenAPIRoute {
       console.error(e);
       return {
         success: false,
-        error: e,
+        error: JSON.stringify(e),
       };
     }
   }
