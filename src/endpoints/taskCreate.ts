@@ -57,7 +57,7 @@ export class TaskCreate extends OpenAPIRoute {
       console.error(e);
       return {
         success: false,
-        error: JSON.stringify(e),
+        error: e,
       };
     }
   }
