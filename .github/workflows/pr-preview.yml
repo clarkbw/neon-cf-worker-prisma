@@ -42,5 +42,7 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           command: deploy --env pr-${{ github.event.number }}
+          secrets: |
+            DATABASE_URL
         env:
           DATABASE_URL: "${{ steps.create-branch.outputs.db_url_with_pooler }}"
