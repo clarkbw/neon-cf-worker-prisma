@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
 
     concurrency:
-      group: ${{ env.PREVIEW_NAME }}
+      group: pr-${{ github.event.number }}
 
     outputs:
       url: ${{ steps.preview.outputs.deployment-url }}
