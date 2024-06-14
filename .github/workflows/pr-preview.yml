@@ -40,10 +40,6 @@ jobs:
 
       - run: npm run preview -- ${{ env.PREVIEW_NAME }}
 
-      - run: npx wrangler secret list
-        env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-
       - id: preview
         uses: cloudflare/wrangler-action@v3
         with:
