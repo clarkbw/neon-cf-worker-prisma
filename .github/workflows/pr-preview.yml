@@ -35,10 +35,12 @@ jobs:
         env:
           DATABASE_URL: "${{ steps.create-branch.outputs.db_url_with_pooler }}"
 
+      - run: npm run preview -- pr-${{ github.event.number }}
+
       - id: preview
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          command: deploy --env preview
+          command: deploy --env pr-${{ github.event.number }}
         env:
           DATABASE_URL: "${{ steps.create-branch.outputs.db_url_with_pooler }}"
