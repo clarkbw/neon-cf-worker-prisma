@@ -37,12 +37,13 @@ jobs:
 
       - run: npm run preview -- pr-${{ github.event.number }}
 
+      - run: npx wrangler secret list
+
       - id: preview
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           command: deploy --env pr-${{ github.event.number }}
-          secrets: |
-            DATABASE_URL
+          secrets: DATABASE_URL
         env:
           DATABASE_URL: "${{ steps.create-branch.outputs.db_url_with_pooler }}"
