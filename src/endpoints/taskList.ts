@@ -66,24 +66,8 @@ export class TaskList extends OpenAPIRoute {
       console.error(e);
       return {
         success: false,
+        error: e,
       };
     }
-
-    // const tasks = [
-    //   {
-    //     name: "Clean my room",
-    //     slug: "clean-room",
-    //     description: null,
-    //     completed: false,
-    //     due_date: "2025-01-05",
-    //   },
-    //   {
-    //     name: "Build something awesome with Neon & Cloudflare Workers",
-    //     slug: "cloudflare-workers",
-    //     description: "Lorem Ipsum",
-    //     completed: true,
-    //     due_date: "2022-12-24",
-    //   },
-    // ].filter((t) => isCompleted === undefined || t.completed == isCompleted);
   }
 }

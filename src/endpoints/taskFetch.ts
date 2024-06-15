@@ -67,7 +67,7 @@ export class TaskFetch extends OpenAPIRoute {
       return Response.json(
         {
           success: false,
-          error: "Object not found",
+          error: e || "Object not found",
         },
         {
           status: 404,
