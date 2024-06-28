@@ -3,10 +3,22 @@ import { TaskCreate } from "./endpoints/taskCreate";
 import { TaskDelete } from "./endpoints/taskDelete";
 import { TaskFetch } from "./endpoints/taskFetch";
 import { TaskList } from "./endpoints/taskList";
+import { authenticate } from "./auth";
 
 export const router = OpenAPIRouter({
+  info: {
+    title: "DB Preview Deploys with Workers",
+    version: "1.0",
+  },
   docs_url: "/",
 });
+
+router.registry.registerComponent("securitySchemes", "bearerAuth", {
+  type: "http",
+  scheme: "bearer",
+});
+
+router.all("/api/*", authenticate);
 
 router.get("/api/tasks/", TaskList);
 router.post("/api/tasks/", TaskCreate);

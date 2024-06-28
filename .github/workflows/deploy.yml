@@ -27,6 +27,9 @@ jobs:
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          secrets: DATABASE_URL
+          secrets: |
+            DATABASE_URL
+            AUTH_TOKEN
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          AUTH_TOKEN: ${{ secrets.AUTH_TOKEN }}
