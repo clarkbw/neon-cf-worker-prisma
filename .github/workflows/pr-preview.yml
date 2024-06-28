@@ -48,4 +48,5 @@ jobs:
           postCommands: |
             echo "*** post command ***"
             echo "${{ steps.create-branch.outputs.db_url_with_pooler }}" | npx wrangler secret put DATABASE_URL --env ${{ env.PREVIEW_NAME }}
+            echo "${{ secrets.AUTH_TOKEN }}" | npx wrangler secret put AUTH_TOKEN --env ${{ env.PREVIEW_NAME }}
             echo "******"
