@@ -33,6 +33,10 @@ export class TaskCreate extends OpenAPIRoute {
     const { name, slug, description, completed, due_date } = data.body;
 
     try {
+      if (!env.authenticated) {
+        throw new Error("endpoint requires authentication");
+      }
+
       // Implement your own object insertion here
       const prisma = await getClient(env);
 

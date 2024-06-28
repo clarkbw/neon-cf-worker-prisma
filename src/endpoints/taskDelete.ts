@@ -38,6 +38,9 @@ export class TaskDelete extends OpenAPIRoute {
     const { taskSlug } = data.params;
 
     try {
+      if (!env.authenticated) {
+        throw new Error("endpoint requires authentication");
+      }
       // Implement your own object deletion here
       const prisma = await getClient(env);
 
