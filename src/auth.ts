@@ -8,6 +8,5 @@ export function getBearer(request: Request): null | string {
 
 export async function authenticate(request: Request, env: any, context: any) {
   const token = getBearer(request);
-  console.log(`token = ${token}`);
   env.authenticated = token === env.AUTH_TOKEN;
 }
