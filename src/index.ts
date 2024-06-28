@@ -10,11 +10,6 @@ export const router = OpenAPIRouter({
     title: "DB Preview Deploys with Workers",
     version: "1.0",
   },
-  security: [
-    {
-      bearerAuth: [],
-    },
-  ],
   docs_url: "/",
 });
 

@@ -15,6 +15,11 @@ export class TaskDelete extends OpenAPIRoute {
         description: "Task slug",
       }),
     },
+    security: [
+      {
+        bearerAuth: [],
+      },
+    ],
     responses: {
       "200": {
         description: "Returns if the task was deleted successfully",

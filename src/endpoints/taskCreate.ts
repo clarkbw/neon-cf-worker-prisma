@@ -10,6 +10,11 @@ export class TaskCreate extends OpenAPIRoute {
     tags: ["Tasks"],
     summary: "Create a new Task",
     requestBody: Task,
+    security: [
+      {
+        bearerAuth: [],
+      },
+    ],
     responses: {
       "200": {
         description: "Returns the created task",
