@@ -87,3 +87,5 @@ As you create Pull Requests for your changes the [pr-preview.yml](./.github/work
 ## Deployments
 
 When your PR is closed the Preview Deployment will automatically be deleted. Both the Neon Database Preview as well as the Cloudflare Worker Preview.
+
+The [deploy.yml](./.github/workflows/deploy.yml) workflow is the final workflow to run, pushing the Preview Deployed Worker into the default production worker. This system does not use Worker versioning.
