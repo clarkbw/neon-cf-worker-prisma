@@ -83,3 +83,7 @@ ln -s .env .dev.vars
 3. Add your Cloudflare API Token to GitHub secrets as `CLOUDFLARE_API_TOKEN`
 
 As you create Pull Requests for your changes the [pr-preview.yml](./.github/workflows/pr-preview.yml) workflow file will automatically create a "Preview Worker". The default name for your work will be the github repository name `neon-cf-worker-prisma` and your preview deployment names will incorporate that `neon-cf-worker-prisma-pr-2` along with the pull request number.
+
+## Deployments
+
+When your PR is closed the Preview Deployment will automatically be deleted. Both the Neon Database Preview as well as the Cloudflare Worker Preview.
