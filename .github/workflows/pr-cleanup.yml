@@ -8,7 +8,6 @@ env:
 
 jobs:
   delete-preview:
-    continue-on-error: true
     runs-on: ubuntu-latest
     steps:
       # delete neon branch
@@ -20,6 +19,7 @@ jobs:
 
       # delete worker preview
       - uses: cloudflare/wrangler-action@v3
+        if: ${{ always() }}
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           command: delete --env ${{ env.PREVIEW_NAME }} --name ${{ github.event.repository.name }}-${{ env.PREVIEW_NAME }}
