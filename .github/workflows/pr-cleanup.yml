@@ -12,6 +12,7 @@ jobs:
     steps:
       # delete neon branch
       - uses: neondatabase/delete-branch-action@v3.1.3
+        continue-on-error: true
         with:
           project_id: ${{ vars.NEON_PROJECT_ID }}
           branch: preview/${{ env.PREVIEW_NAME }}
@@ -19,7 +20,7 @@ jobs:
 
       # delete worker preview
       - uses: cloudflare/wrangler-action@v3
-        if: ${{ always() }}
+        continue-on-error: true
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           command: delete --env ${{ env.PREVIEW_NAME }} --name ${{ github.event.repository.name }}-${{ env.PREVIEW_NAME }}
