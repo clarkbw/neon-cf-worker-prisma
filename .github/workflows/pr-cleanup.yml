@@ -34,4 +34,4 @@ jobs:
         continue-on-error: true
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          command: delete --env ${{ env.PREVIEW_NAME }} --name ${{ github.event.repository.name }}-${{ env.PREVIEW_NAME }}
+          command: delete --env ${{ env.PREVIEW_NAME }}
