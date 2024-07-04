@@ -1,6 +1,25 @@
-# DATABASE_URL
-Cloudflare needs `.dev.vars`
-Prisma needs `.env`
+# Setup
+
+```shell
+npm install
+```
+
+## Database
+
+Create the `DATABASE_URL` environment variable using the [neon cli](https://github.com/neondatabase/neonctl#readme)
+
+```shell
+export DATABASE_URL="`neonctl cs`"
+echo "DATABASE_URL=$DATABASE_URL" >> .env
+```
+
+## Environments
+
+Cloudflare Workers need the `.dev.vars` but we don't want to have multiple environment files so we run the following to link our `.env` that Prisma and everything else uses.
+
+```shell
+ln -s .env .dev.vars
+```
 
 # Cloudflare Workers OpenAPI 3.1
 
