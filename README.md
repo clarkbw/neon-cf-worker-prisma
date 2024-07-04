@@ -81,6 +81,7 @@ ln -s .env .dev.vars
 1. Add your Neon Project ID to GitHub vars as `NEON_PROJECT_ID`
 2. Add your Neon API Key to GitHub secrets as `NEON_API_KEY`
 3. Add your Cloudflare API Token to GitHub secrets as `CLOUDFLARE_API_TOKEN`
+4. Add your Cloudflare Account ID to GitHub secrets as `CLOUDFLARE_ACCOUNT_ID` for use in the `pr-cleanup.yml` workflow
 
 As you create Pull Requests for your changes the [pr-preview.yml](./.github/workflows/pr-preview.yml) workflow file will automatically create a "Preview Worker". The default name for your work will be the github repository name `neon-cf-worker-prisma` and your preview deployment names will incorporate the Pull Request number into the end such that preview workers use names like: `neon-cf-worker-prisma-pr-2`.
 
