@@ -3,6 +3,9 @@ on:
   pull_request:
     types: [closed]
 
+env:
+  PREVIEW_NAME: pr-${{ github.event.number }}
+
 jobs:
   delete-preview:
     continue-on-error: true
@@ -12,7 +15,7 @@ jobs:
       - uses: neondatabase/delete-branch-action@v3.1.3
         with:
           project_id: ${{ vars.NEON_PROJECT_ID }}
-          branch: preview/pr-${{ github.event.number }}
+          branch: preview/${{ env.PREVIEW_NAME }}
           api_key: ${{ secrets.NEON_API_KEY }}
 
       # delete worker preview
